@@ -11,8 +11,6 @@ Route::get('/', function () {
     if (auth()->check()) {
         $posts = auth()->user()->usersCoolPosts;
     }
-
-    //$posts = Post::where('user_id', auth()->id())->get();
     return view('home', ['posts' => $posts]);
 });
 
@@ -24,3 +22,7 @@ Route::post('/login', [UserController::class,'login']);
 
 // Blogpost
 Route::post('/create-post', [PostController::class, 'createPost']);
+
+Route::get('/edit-post/{post}', [PostController::class,'showEditScreen']);
+Route::put('/edit-post/{post}', [PostController::class, 'UpdatePost'])->name('post.update');
+Route::delete('/delete-post/{post}', [PostController::class, 'deletePost'])->name('post.deletePost');
